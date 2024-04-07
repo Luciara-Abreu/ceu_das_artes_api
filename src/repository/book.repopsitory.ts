@@ -34,7 +34,8 @@ export class BookRepository {
   }
 
   async create(book: IBookDTO) {
-    return await repository.create(book);
+    const newBook = repository.create(book);
+    return await repository.save(newBook);
   }
 
   async update(id: string, book: Partial<IBookDTO>) {
