@@ -1,6 +1,6 @@
-export interface IBook {
+export interface IBookDTO {
   id: string;
-  tille: string;
+  title: string;
   author: string;
   yearPublication?: Date;
   genre: string;

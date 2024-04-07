@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('books')
-export class User {
+export class Book {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,7 +13,7 @@ export class User {
   author: string;
 
   @Column()
-  yearPublication: string;
+  yearPublication?: Date;
 
   @Column()
   genre: string;
