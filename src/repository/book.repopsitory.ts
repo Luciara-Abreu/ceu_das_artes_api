@@ -4,7 +4,7 @@ import { Book } from '../entity/book.entity';
 
 const repository = AppDataSource.getRepository(Book);
 
-class BookRepository {
+export class BookRepository {
   async getAll() {
     return await repository.find();
   }
@@ -45,5 +45,3 @@ class BookRepository {
     return await repository.delete({ id });
   }
 }
-
-export default new BookRepository();
