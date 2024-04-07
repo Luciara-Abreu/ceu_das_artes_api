@@ -1,0 +1,13 @@
+services:
+  postgres:
+    container_name: ceu-das-artes-pg
+    image: postgres
+    ports:
+      - 6432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DATA_BASE}
+      PGDATA: /data/postgres
+    volumes:
+      - ./data/pg:/data/postgres
