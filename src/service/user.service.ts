@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { UserRepository } from '../repository/user.repository';
 import { IUserDTO } from '../dto/user.dto';
 
@@ -33,12 +32,6 @@ export class UseService {
     } else {
       throw new Error('Usuário já cadastrado');
     }
-  }
-
-  async createUser(req: Request, res: Response) {
-    const user = await this.userRepository.create(req.body);
-
-    return res.json(user);
   }
 
   async update(id: string, user: Partial<IUserDTO>) {
