@@ -77,3 +77,15 @@
     password: '123456',
   },
 ];
+
+//Exemplos de location
+
+[
+  {
+    bookId: 'df75abaa-b831-4e94-835d-2f106ee21e3e',
+    userId: '66c50630-85da-4c65-aa87-7ce840f7b845',
+    takeOnDate: '2024-03-27',
+    devolutionDate: '2024-04-15',
+    status: 'boas condições e sem nehuma razura',
+  },
+];
