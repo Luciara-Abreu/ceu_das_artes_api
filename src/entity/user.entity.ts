@@ -33,6 +33,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt?: Date;
 
+  //relacionamento
   @OneToMany(() => Location, (location) => location.user)
   locations: Location[];
 

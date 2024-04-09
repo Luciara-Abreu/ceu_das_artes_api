@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source';
 import { IDevolutionDTO } from '../dto/devolution';
-import { Devolution } from '../entity/devolution';
+import { Devolution } from '../entity/devolution.entity';
 
 const repository = AppDataSource.getRepository(Devolution);
 
