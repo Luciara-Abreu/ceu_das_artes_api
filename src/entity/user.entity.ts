@@ -1,5 +1,6 @@
 // eslint-disable-next-line prettier/prettier
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Role } from '../helpers/enum';
 
 @Entity('users')
 export class User {
@@ -15,7 +16,9 @@ export class User {
   @Column()
   fone: string;
 
-  @Column()
+  @Column({
+    default: Role.User,
+  })
   role: number;
 
   @Column()

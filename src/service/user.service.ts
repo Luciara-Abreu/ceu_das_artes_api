@@ -1,5 +1,6 @@
 import { UserRepository } from '../repository/user.repository';
 import { IUserDTO } from '../dto/user.dto';
+import * as bcrypt from 'bcrypt';
 
 export class UseService {
   constructor(private userRepository: UserRepository) {}
@@ -21,17 +22,13 @@ export class UseService {
   }
 
   async create(name: string, email: string, newUSer: IUserDTO) {
-    const userName = await this.userRepository.getByName(name);
-    const userEmail = await this.userRepository.getByEmail(email);
+    const user = await this.userRepository.getByEmail(email);
 
-    if (!userName) {
-      if (userEmail) {
-        throw new Error('Usuário já cadastrado');
-      }
-      return this.userRepository.create(newUSer);
-    } else {
-      throw new Error('Usuário já cadastrado');
-    }
+    if (user) throw new Error('Usuário já cadastrado');
+
+    newUSer.password = await bcrypt.hash(newUSer.password, await bcrypt.genSalt());
+
+    return this.userRepository.create(newUSer);
   }
 
   async update(id: string, user: Partial<IUserDTO>) {
