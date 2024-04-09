@@ -2,6 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Location } from './location.entity';
 import { Devolution } from './devolution.entity';
+import { Role } from '../helpers/enum';
 
 @Entity('users')
 export class User {
@@ -17,7 +18,9 @@ export class User {
   @Column()
   fone: string;
 
-  @Column()
+  @Column({
+    default: Role.User,
+  })
   role: number;
 
   @Column()
