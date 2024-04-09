@@ -1,5 +1,4 @@
 // eslint-disable-next-line prettier/prettier
-import { Role } from '../helpers/enum';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Location } from './location.entity';
 import { Devolution } from './devolution.entity';
