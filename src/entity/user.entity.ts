@@ -2,7 +2,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Location } from './location.entity';
 import { Devolution } from './devolution.entity';
+<<<<<<< HEAD
 import { Course } from './course.entity';
+=======
+>>>>>>> 3255291 (Add user authentication)
 import { Role } from '../helpers/enum';
 
 @Entity('users')
