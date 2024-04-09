@@ -12,6 +12,7 @@ router.use('/login', authRoute);
 router.use('/auth', authRoute);
 router.use('/course', courseRoute);
 router.use('/auth', authRoute);
+router.use('/login', authRoute);
 router.use('/user', userRoute);
 router.use('/book', bookRoute);
 router.use('/location', locationRoute);
