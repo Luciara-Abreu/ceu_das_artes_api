@@ -1,6 +1,8 @@
 // eslint-disable-next-line prettier/prettier
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Role } from '../helpers/enum';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Location } from './location.entity';
+import { Devolution } from './devolution.entity';
 
 @Entity('users')
 export class User {
@@ -29,4 +31,11 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt?: Date;
+
+  //relacionamento
+  @OneToMany(() => Location, (location) => location.user)
+  locations: Location[];
+
+  @OneToMany(() => Devolution, (devolution) => devolution.user)
+  devolution: Devolution[];
 }

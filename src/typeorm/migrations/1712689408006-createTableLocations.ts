@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
-export class Migrate1712589955739 implements MigrationInterface {
+export class Migrate1712689408006 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -46,6 +46,27 @@ export class Migrate1712589955739 implements MigrationInterface {
         ],
       }),
       true,
+    );
+
+    // Adiciona as chaves estrangeiras
+    await queryRunner.createForeignKey(
+      'locations',
+      new TableForeignKey({
+        columnNames: ['bookId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'books',
+        onDelete: 'CASCADE',
+      }),
+    );
+
+    await queryRunner.createForeignKey(
+      'locations',
+      new TableForeignKey({
+        columnNames: ['userId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+        onDelete: 'CASCADE',
+      }),
     );
   }
 
