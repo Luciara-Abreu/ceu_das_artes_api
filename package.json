@@ -39,13 +39,9 @@
     "format": "eslint src/**/*.ts --fix",
     "build": "tsc",
     "start": "node dist/index.js",
-    "typeorm:es": "typeorm-ts-node-esm",
     "typeorm:ts": "typeorm-ts-node-commonjs",
-
     "migrate:create": "npm run typeorm:ts migration:create -- ./src/typeorm/migrations/Migrate",
     "migrate:up": "npm run typeorm:ts migration:run -- -d ./src/data-source.ts",
-    "migrate:run":"npm run typeorm:ts migration:run -- -d ./src/data-source.ts",
     "migrate:down": "npm run typeorm:ts migration:revert -- -d ./typeorm/data-source.ts"    
-   
   }
 }
