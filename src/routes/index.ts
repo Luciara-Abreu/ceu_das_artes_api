@@ -16,4 +16,3 @@ router.use('/devolution', devolutionRoute);
 router.use('/course', courseRoute);
 
 export default router;
-

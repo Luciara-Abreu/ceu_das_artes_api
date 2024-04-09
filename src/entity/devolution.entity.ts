@@ -26,11 +26,11 @@ export class Devolution {
   @UpdateDateColumn()
   updatedAt?: Date;
 
-  @ManyToOne(() => Book, (book) => book.devolution) // Muitas devoluções podem ter um único livro
-  @JoinColumn({ name: 'bookId' }) // Nome da coluna na tabela de Locação que armazena a chave estrangeira
+  @ManyToOne(() => Book, (book) => book.devolution)
+  @JoinColumn({ name: 'bookId' })
   book: Book;
 
-  @ManyToOne(() => User, (user) => user.devolution) // Muitas devoluções podem ter um único usuário
-  @JoinColumn({ name: 'userId' }) // Nome da coluna na tabela de Locação que armazena a chave estrangeira
+  @ManyToOne(() => User, (user) => user.devolution)
+  @JoinColumn({ name: 'userId' })
   user: User;
 }
