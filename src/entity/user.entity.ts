@@ -3,6 +3,8 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { Location } from './location.entity';
 import { Devolution } from './devolution.entity';
 
+import { Course } from './course.entity';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -35,4 +37,7 @@ export class User {
 
   @OneToMany(() => Devolution, (devolution) => devolution.user)
   devolution: Devolution[];
+
+  @OneToMany(() => Course, (course) => course.user)
+  courses: Course[];
 }
