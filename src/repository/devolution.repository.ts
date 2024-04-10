@@ -1,4 +1,3 @@
-import { readFile } from 'fs';
 import { AppDataSource } from '../data-source';
 import { IDevolutionDTO } from '../dto/devolution';
 import { Devolution } from '../entity/devolution.entity';
