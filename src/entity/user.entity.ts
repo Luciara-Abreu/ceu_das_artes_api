@@ -8,6 +8,8 @@ import { Course } from './course.entity';
 >>>>>>> 3255291 (Add user authentication)
 import { Role } from '../helpers/enum';
 
+import { Course } from './course.entity';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
