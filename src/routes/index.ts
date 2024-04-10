@@ -6,6 +6,8 @@ import locationRoute from './location.routes';
 import devolutionRoute from './devolution.routes';
 import courseRoute from './course.routes';
 
+import courseRoute from './course.routes';
+
 const router = Router();
 
 router.use('/auth', authRoute);
