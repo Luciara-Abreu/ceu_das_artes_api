@@ -33,7 +33,7 @@ export class BookService {
   async update(id: string, book: Partial<IBookDTO>) {
     const idBook = await this.bookRepopsitory.getById(id);
     if (!idBook) {
-      throw new Error('Usuário não encontrado 👻');
+      throw new Error('Livro não encontrado 👻');
     }
     const bookUpdate = this.bookRepopsitory.update(id, book);
     return bookUpdate;
@@ -42,7 +42,7 @@ export class BookService {
   async remove(id: string) {
     const idBook = await this.bookRepopsitory.getById(id);
     if (!idBook) {
-      throw new Error('Usuário não encontrado 👻');
+      throw new Error('Livro não encontrado 👻');
     }
     await this.bookRepopsitory.remove(id);
   }
