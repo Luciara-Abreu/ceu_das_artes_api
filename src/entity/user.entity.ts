@@ -5,6 +5,8 @@ import { Devolution } from './devolution.entity';
 import { Course } from './course.entity';
 import { Role } from '../helpers/enum';
 
+import { Course } from './course.entity';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
