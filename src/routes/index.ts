@@ -4,8 +4,11 @@ import bookRoute from './book.routes';
 import locationRoute from './location.routes';
 import devolutionRoute from './devolution.routes';
 
+import courseRoute from './course.routes';
+
 const router = Router();
 
+router.use('/course', courseRoute);
 router.use('/user', userRoute);
 router.use('/book', bookRoute);
 router.use('/location', locationRoute);
