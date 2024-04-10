@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Book } from './book.entity';
 import { User } from './user.entity';
 
 @Entity('course')
@@ -14,10 +13,13 @@ export class Course {
   description: string;
 
   @Column()
-  duration: string;
+  periodMorning: string;
 
   @Column()
-  period: string;
+  periodMAfternoon: string;
+
+  @Column()
+  durationClassroom: string;
 
   @Column()
   dayOfTheWeek: string;
@@ -32,6 +34,6 @@ export class Course {
   updatedAt?: Date;
 
   @ManyToOne(() => User, (user) => user.courses)
-  @JoinColumn({ name: 'istructorId' })
+  @JoinColumn({ name: 'instructorId' })
   user: User;
 }
