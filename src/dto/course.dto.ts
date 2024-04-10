@@ -2,8 +2,9 @@ export interface ICourseDTO {
   id: string;
   name: string;
   description: string;
-  duration: string;
+  periodMorning: string;
+  periodMAfternoon: string;
+  durationClassroom: string;
   dayOfTheWeek: string;
-  period: string;
   instructorId: string;
 }
