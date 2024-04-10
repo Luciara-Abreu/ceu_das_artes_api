@@ -4,16 +4,11 @@ import userRoute from './user.routes';
 import bookRoute from './book.routes';
 import locationRoute from './location.routes';
 import devolutionRoute from './devolution.routes';
-<<<<<<< HEAD
 import courseRoute from './course.routes';
 
-=======
->>>>>>> 6a4ab4b (Add user authentication)
-import courseRoute from './course.routes';
 
 const router = Router();
 
-router.use('/auth', authRoute);
 router.use('/login', authRoute);
 router.use('/auth', authRoute);
 router.use('/user', userRoute);
