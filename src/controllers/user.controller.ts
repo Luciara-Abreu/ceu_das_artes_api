@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { UseService } from '../service/user.service';
+import { UserService } from '../service/user.service';
 
 export class UserController {
-  constructor(private userService: UseService) {}
+  constructor(private userService: UserService) {}
 
   async getAll(req: Request, res: Response) {
     try {
@@ -25,7 +25,7 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     try {
-      await this.userService.create(req.body.name, req.body.email, req.body);
+      await this.userService.create(req.body.email, req.body);
       res.status(200).send({ message: 'Usuário adicionado com sucesso!' });
     } catch (error: any) {
       res.status(400).send({ message: error.message });
