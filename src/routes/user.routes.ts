@@ -1,12 +1,10 @@
 import { Request, Response, Router } from 'express';
-import { UseService } from '../service/user.service';
-import { UserRepository } from '../repository/user.repository';
 import { UserController } from '../controllers/user.controller';
+import { UserService } from '../service/user.service';
 
 const route = Router();
 
-const userRepository = new UserRepository();
-const userService = new UseService(userRepository);
+const userService = new UserService();
 const userController = new UserController(userService);
 
 route.get('/', async (req: Request, res: Response) => {
