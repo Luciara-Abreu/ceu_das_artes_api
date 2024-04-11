@@ -1,14 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import { AuthRepository } from '../repository/auth.repository';
 import * as jwt from 'jsonwebtoken';
+import { AppDataSource } from '../data-source';
+import { User } from '../entity/user.entity';
 
 type JwtPayload = {
   id: string;
 };
 
+const repository = AppDataSource.getRepository(User);
+
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
-  const authRepository = new AuthRepository();
 
   try {
     if (!authorization) return res.status(401).json({ error: 'Não autorizado. Token ausente.' });
@@ -17,7 +19,8 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
 
-    const user = await authRepository.getById(decodedToken.id);
+    const id = decodedToken.id;
+    const user = await repository.findOneBy({ id });
 
     if (!user) return res.status(401).json({ error: 'Não autorizado. Usuário não encontrado.' });
 
