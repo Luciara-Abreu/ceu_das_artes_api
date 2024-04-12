@@ -1,12 +1,10 @@
 import { Request, Response, Router } from 'express';
-import { CourseRepository } from '../repository/course.repository';
 import { CourseService } from '../service/course.service';
 import { CourseController } from '../controllers/course.controller';
 
 const route = Router();
 
-const courseRepository = new CourseRepository();
-const courseService = new CourseService(courseRepository);
+const courseService = new CourseService();
 const courseController = new CourseController(courseService);
 
 route.get('/', async (req: Request, res: Response) => {
