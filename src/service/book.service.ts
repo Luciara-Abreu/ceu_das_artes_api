@@ -1,49 +1,56 @@
+import { AppDataSource } from '../data-source';
 import { IBookDTO } from '../dto/book.dto';
-import { BookRepository } from '../repository/book.repopsitory';
+import { Book } from '../entity/book.entity';
 
 export class BookService {
-  constructor(private bookRepopsitory: BookRepository) {}
+  private bookRepopsitory = AppDataSource.getRepository(Book);
 
   async getAll() {
-    const list = await this.bookRepopsitory.getAll();
+    const list = await this.bookRepopsitory.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
     }
+
     return list;
   }
 
   async getOne(id: string) {
-    const idBook = await this.bookRepopsitory.getById(id);
+    const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
       throw new Error('Livro não encontrado 👻');
     }
+
     return idBook;
   }
 
   async create(title: string, author: string, newBook: IBookDTO) {
-    const bookName = await this.bookRepopsitory.getByTitle(title);
-    const bookAuthor = await this.bookRepopsitory.getByAuthor(author);
+    const book = await this.bookRepopsitory.findBy({ title, author });
 
-    if (bookName && bookAuthor) {
-      throw new Error('Livro já cadastrado');
-    }
-    return this.bookRepopsitory.create(newBook);
+    book.forEach((thisBook) => {
+      if (thisBook.title === title && thisBook.author === author) {
+        throw new Error('Livro já cadastrado');
+      }
+    });
+
+    return this.bookRepopsitory.save(newBook);
   }
 
   async update(id: string, book: Partial<IBookDTO>) {
-    const idBook = await this.bookRepopsitory.getById(id);
+    const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
       throw new Error('Livro não encontrado 👻');
     }
     const bookUpdate = this.bookRepopsitory.update(id, book);
+
     return bookUpdate;
   }
 
   async remove(id: string) {
-    const idBook = await this.bookRepopsitory.getById(id);
+    const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
       throw new Error('Livro não encontrado 👻');
     }
-    await this.bookRepopsitory.remove(id);
+
+    await this.bookRepopsitory.delete({ id });
   }
 }
