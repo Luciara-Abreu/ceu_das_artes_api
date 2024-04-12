@@ -1,6 +1,6 @@
 import { IUserDTO } from '../dto/user.dto';
-import * as jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import { resolve } from 'path';
 import { EtherealMailProvider } from '../providers/ethereal-mail.provider';
 import { AppDataSource } from '../data-source';

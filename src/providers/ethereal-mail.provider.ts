@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as handlebars from 'handlebars';
-import * as nodemailer from 'nodemailer';
-import * as dotenv from 'dotenv';
+import fs from 'fs';
+import handlebars from 'handlebars';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
