@@ -1,11 +1,12 @@
+import { AppDataSource } from '../data-source';
 import { ICourseDTO } from '../dto/course.dto';
-import { CourseRepository } from '../repository/course.repository';
+import { Course } from '../entity/course.entity';
 
 export class CourseService {
-  constructor(private courseRepository: CourseRepository) {}
+  private courseRepository = AppDataSource.getRepository(Course);
 
   async getAll() {
-    const list = await this.courseRepository.getAll();
+    const list = await this.courseRepository.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
     }
@@ -13,7 +14,7 @@ export class CourseService {
   }
 
   async getOne(id: string) {
-    const idCurso = await this.courseRepository.getById(id);
+    const idCurso = await this.courseRepository.findOneBy({ id });
     if (!idCurso) {
       throw new Error('Curso não encontrado 👻');
     }
@@ -21,17 +22,19 @@ export class CourseService {
   }
 
   async create(name: string, instructorId: string, newCourse: ICourseDTO) {
-    const courseName = await this.courseRepository.getByTitle(name);
-    const getInstructor = await this.courseRepository.getByInstructor(instructorId);
+    const course = await this.courseRepository.findBy({ name, instructorId });
 
-    if (courseName && getInstructor) {
-      throw new Error('Curso já cadastrado');
-    }
-    return this.courseRepository.create(newCourse);
+    course.forEach((thisCourse) => {
+      if (thisCourse.name === name && thisCourse.instructorId === instructorId) {
+        throw new Error('Curso já cadastrado');
+      }
+    });
+
+    return this.courseRepository.save(newCourse);
   }
 
   async update(id: string, course: Partial<ICourseDTO>) {
-    const idCurso = await this.courseRepository.getById(id);
+    const idCurso = await this.courseRepository.findOneBy({ id });
     if (!idCurso) {
       throw new Error('Curso não encontrado 👻');
     }
@@ -40,10 +43,10 @@ export class CourseService {
   }
 
   async remove(id: string) {
-    const idCurso = await this.courseRepository.getById(id);
+    const idCurso = await this.courseRepository.findOneBy({ id });
     if (!idCurso) {
       throw new Error('Curso não encontrado 👻');
     }
-    await this.courseRepository.remove(id);
+    await this.courseRepository.delete({ id });
   }
 }
