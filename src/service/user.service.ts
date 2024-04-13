@@ -1,5 +1,5 @@
 import { IUserDTO } from '../dto/user.dto';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/user.entity';
 
