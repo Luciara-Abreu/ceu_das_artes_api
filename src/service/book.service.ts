@@ -1,6 +1,7 @@
 import { AppDataSource } from '../data-source';
 import { IBookDTO } from '../dto/book.dto';
 import { Book } from '../entity/book.entity';
+import { NotFoundError, ConflictError } from '../helpers/api.error';
 
 export class BookService {
   private bookRepopsitory = AppDataSource.getRepository(Book);
@@ -8,7 +9,7 @@ export class BookService {
   async getAll() {
     const list = await this.bookRepopsitory.find();
     if (list.length === 0 || !list.length) {
-      throw new Error('A lista está vazia 👻');
+      throw new NotFoundError('A lista está vazia 👻');
     }
 
     return list;
@@ -17,7 +18,7 @@ export class BookService {
   async getOne(id: string) {
     const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
-      throw new Error('Livro não encontrado 👻');
+      throw new NotFoundError('Livro não encontrado 👻');
     }
 
     return idBook;
@@ -28,7 +29,7 @@ export class BookService {
 
     book.forEach((thisBook) => {
       if (thisBook.title === title && thisBook.author === author) {
-        throw new Error('Livro já cadastrado');
+        throw new ConflictError('Livro já cadastrado');
       }
     });
 
@@ -38,7 +39,7 @@ export class BookService {
   async update(id: string, book: Partial<IBookDTO>) {
     const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
-      throw new Error('Livro não encontrado 👻');
+      throw new NotFoundError('Livro não encontrado 👻');
     }
     const bookUpdate = this.bookRepopsitory.update(id, book);
 
@@ -48,7 +49,7 @@ export class BookService {
   async remove(id: string) {
     const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
-      throw new Error('Livro não encontrado 👻');
+      throw new NotFoundError('Livro não encontrado 👻');
     }
 
     await this.bookRepopsitory.delete({ id });

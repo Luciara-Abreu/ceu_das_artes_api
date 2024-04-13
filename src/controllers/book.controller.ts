@@ -5,50 +5,35 @@ export class BookController {
   constructor(private bookService: BookService) {}
 
   async getAll(req: Request, res: Response) {
-    try {
-      const listBooks = await this.bookService.getAll();
-      res.status(200).send(listBooks);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const listBooks = await this.bookService.getAll();
+
+    return res.status(200).send(listBooks);
   }
 
   async getId(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      const book = await this.bookService.getOne(id);
-      res.status(200).send(book);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const book = await this.bookService.getOne(id);
+
+    return res.status(200).send(book);
   }
 
   async create(req: Request, res: Response) {
-    try {
-      await this.bookService.create(req.body.title, req.body.author, req.body);
-      res.status(200).send({ message: 'Livro adicionado com sucesso!' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.bookService.create(req.body.title, req.body.author, req.body);
+
+    return res.status(200).send({ message: 'Livro adicionado com sucesso!' });
   }
 
   async update(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      await this.bookService.update(id, req.body);
-      res.status(200).send({ message: 'Livro atualizado com sucesso' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.bookService.update(id, req.body);
+
+    return res.status(200).send({ message: 'Livro atualizado com sucesso' });
   }
 
   async delete(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      await this.bookService.remove(id);
-      res.status(200).send({ message: 'Livro deletado com sucesso!' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.bookService.remove(id);
+
+    return res.status(200).send({ message: 'Livro deletado com sucesso!' });
   }
 }
