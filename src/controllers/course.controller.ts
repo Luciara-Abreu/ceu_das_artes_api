@@ -24,31 +24,22 @@ export class CourseController {
   }
 
   async create(req: Request, res: Response) {
-    try {
-      await this.courseService.create(req.body.name, req.body.instructorId, req.body);
-      res.status(200).send({ message: 'Curso adicionado com sucesso!' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.courseService.create(req.body.name, req.body.instructorId, req.body);
+
+    return res.status(200).send({ message: 'Curso adicionado com sucesso!' });
   }
 
   async update(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      await this.courseService.update(id, req.body);
-      res.status(200).send({ message: 'Curso atualizado com sucesso' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.courseService.update(id, req.body);
+
+    return res.status(200).send({ message: 'Curso atualizado com sucesso' });
   }
 
   async delete(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      await this.courseService.remove(id);
-      res.status(200).send({ message: 'Curso deletado com sucesso!' });
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    await this.courseService.remove(id);
+
+    return res.status(200).send({ message: 'Curso deletado com sucesso!' });
   }
 }
