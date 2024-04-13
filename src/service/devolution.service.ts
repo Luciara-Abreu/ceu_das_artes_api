@@ -4,6 +4,7 @@ import { ILocationDTO } from '../dto/location.dto';
 import { Book } from '../entity/book.entity';
 import { Devolution } from '../entity/devolution.entity';
 import { Location } from '../entity/location.entity';
+import { NotFoundError } from '../helpers/api.error';
 
 export class DevolutionService {
   private bookRepository = AppDataSource.getRepository(Book);
@@ -13,7 +14,7 @@ export class DevolutionService {
   async getAll() {
     const list = await this.devolutionRepository.find();
     if (list.length === 0 || !list.length) {
-      throw new Error('A  lista de devolução está vazia 👻');
+      throw new NotFoundError('A  lista de devolução está vazia 👻');
     }
 
     return list;
@@ -22,7 +23,7 @@ export class DevolutionService {
   async getOne(id: string) {
     const idBook = await this.devolutionRepository.findOneBy({ id });
     if (!idBook) {
-      throw new Error('Devolução não encontrada 👻');
+      throw new NotFoundError('Devolução não encontrada 👻');
     }
 
     return idBook;
@@ -35,18 +36,18 @@ export class DevolutionService {
 
     // 2. Verificar se o livro foi encontrado
     if (!book) {
-      throw new Error('Livro não encontrado');
+      throw new NotFoundError('Livro não encontrado');
     }
 
     // 3. Verificar se o usuário tem este livro locado
     const userLocation = await this.locationRepopsitory.findBy({ bookId, userId });
     if (userLocation.length === 0) {
-      throw new Error('O usuário não tem este livro locado!!');
+      throw new NotFoundError('O usuário não tem este livro locado!!');
     }
 
     for (const location of userLocation) {
       if (location.userId === userId && location.status === 'devolvido') {
-        throw new Error('O usuário não tem este livro locado!!');
+        throw new NotFoundError('O usuário não tem este livro locado!!');
       }
 
       // 4. Criar a devolução
@@ -67,7 +68,7 @@ export class DevolutionService {
   async update(id: string, location: Partial<ILocationDTO>) {
     const idLocation = await this.devolutionRepository.findOneBy({ id });
     if (!idLocation) {
-      throw new Error('Locação não encontrada 👻');
+      throw new NotFoundError('Locação não encontrada 👻');
     }
     const bookUpdate = this.devolutionRepository.update(id, location);
 
@@ -77,7 +78,7 @@ export class DevolutionService {
   async remove(id: string) {
     const idLocation = await this.devolutionRepository.findOneBy({ id });
     if (!idLocation) {
-      throw new Error('Locação não encontrado 👻');
+      throw new NotFoundError('Locação não encontrado 👻');
     }
 
     await this.devolutionRepository.delete({ id });
