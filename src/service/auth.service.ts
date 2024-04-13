@@ -6,6 +6,7 @@ import { EtherealMailProvider } from '../providers/ethereal-mail.provider';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/user.entity';
 import { validate as validateUUID } from 'uuid';
+import { BadRequestError } from '../helpers/api.error';
 
 export class AuthService {
   private repository = AppDataSource.getRepository(User);
@@ -21,9 +22,9 @@ export class AuthService {
   async login(email: string, password: string) {
     const user = await this.repository.findOneBy({ email });
 
-    if (!user) throw new Error('Senha ou e-mail inválido.');
+    if (!user) throw new BadRequestError('Senha ou e-mail inválido.');
 
-    if (!(await bcrypt.compare(password, user.password))) throw new Error('Senha ou e-mail inválido.');
+    if (!(await bcrypt.compare(password, user.password))) throw new BadRequestError('Senha ou e-mail inválido.');
 
     return this.createToken(user);
   }
@@ -31,7 +32,7 @@ export class AuthService {
   async forget(email: string) {
     const user = await this.repository.findOneBy({ email });
 
-    if (!user) throw new Error('Email incorreto. Por favor, verifique o seu email e tente novamente.');
+    if (!user) throw new BadRequestError('Email incorreto. Por favor, verifique o seu email e tente novamente.');
 
     const templatePath = resolve(__dirname, '..', 'templates', 'forgot.password.hbs');
 
@@ -48,7 +49,7 @@ export class AuthService {
   async reset(password: string, token: string) {
     const data: any = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (!validateUUID(data.id)) throw new Error('Token não é valido');
+    if (!validateUUID(data.id)) throw new BadRequestError('Token não é valido');
 
     password = await bcrypt.hash(password, await bcrypt.genSalt());
 
