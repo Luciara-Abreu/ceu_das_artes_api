@@ -2,6 +2,7 @@ import { AppDataSource } from '../data-source';
 import { ILocationDTO } from '../dto/location.dto';
 import { Book } from '../entity/book.entity';
 import { Location } from '../entity/location.entity';
+import { NotFoundError, ForbiddenError } from '../helpers/api.error';
 
 export class LocationService {
   private locationRepopsitory = AppDataSource.getRepository(Location);
@@ -10,7 +11,7 @@ export class LocationService {
   async getAll() {
     const list = await this.locationRepopsitory.find();
     if (list.length === 0 || !list.length) {
-      throw new Error('A lista está vazia 👻');
+      throw new NotFoundError('A lista está vazia 👻');
     }
 
     return list;
@@ -19,7 +20,7 @@ export class LocationService {
   async getOne(id: string) {
     const idBook = await this.locationRepopsitory.findOneBy({ id });
     if (!idBook) {
-      throw new Error('Locação não encontrada 👻');
+      throw new NotFoundError('Locação não encontrada 👻');
     }
 
     return idBook;
@@ -32,24 +33,24 @@ export class LocationService {
 
     // 2. Verificar se o livro foi encontrado
     if (!book) {
-      throw new Error('Livro não encontrado');
+      throw new NotFoundError('Livro não encontrado');
     }
 
     // 3. Verificar se o livro está disponível
     if (book.booksInStock <= 0) {
-      throw new Error('Livro não disponível para locação');
+      throw new NotFoundError('Livro não disponível para locação');
     }
 
     // 4. Verificar se o usuário já tem + de 3 livros locados
     const userLocationsCount = await this.locationRepopsitory.countBy({ userId });
     if (userLocationsCount >= 3) {
-      throw new Error('Usuário já locou o máximo de livros permitidos');
+      throw new ForbiddenError('Usuário já locou o máximo de livros permitidos');
     }
 
     const userLocation = await this.locationRepopsitory.findBy({ bookId });
     userLocation.forEach((Location) => {
       if (Location.userId === userId && Location.status != 'devolvido') {
-        throw new Error('Livro já está locado para esse leitor !!');
+        throw new ForbiddenError('Livro já está locado para esse leitor !!');
       }
     });
 
@@ -66,7 +67,7 @@ export class LocationService {
   async update(id: string, location: Partial<ILocationDTO>) {
     const idLocation = await this.locationRepopsitory.findOneBy({ id });
     if (!idLocation) {
-      throw new Error('Locação não encontrada 👻');
+      throw new NotFoundError('Locação não encontrada 👻');
     }
     const bookUpdate = this.locationRepopsitory.update(id, location);
 
@@ -76,7 +77,7 @@ export class LocationService {
   async remove(id: string) {
     const idLocation = await this.locationRepopsitory.findOneBy({ id });
     if (!idLocation) {
-      throw new Error('Locação não encontrado 👻');
+      throw new NotFoundError('Locação não encontrado 👻');
     }
 
     await this.locationRepopsitory.delete({ id });
