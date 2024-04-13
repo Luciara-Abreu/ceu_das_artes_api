@@ -20,20 +20,18 @@ AppDataSource.initialize()
     app.listen(port, () => {
       console.log('');
       // eslint-disable-next-line prettier/prettier
-      console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
+      console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
       // eslint-disable-next-line prettier/prettier
-      console.log('✨ 🏆 Server is running on  ==> http://localhost:3000/                                                               🏆 ✨');
+      console.log('✨ 🏆 Server is running on  ==> http://localhost:3000/ 🏆 ✨');
       // eslint-disable-next-line prettier/prettier
-      console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
+      console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
     });
   })
   .catch((error: any) => {
     console.log('');
     // eslint-disable-next-line prettier/prettier
-    console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
-    console.error('✨🚨 Falha ao conectar ao banco de dados                                      🚨✨');
-    // eslint-disable-next-line prettier/prettier
-    console.error({ message: error.message, code: error.code});
-    console.log('');
-    console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
+    console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
+    console.error('✨🚨 Falha ao conectar ao banco de dados    🚨✨');
+    console.log('✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨');
+    console.error({ message: error.message, code: error.code });
   });

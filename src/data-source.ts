@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import  dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 
 dotenv.config();
@@ -12,8 +12,8 @@ export const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASS,
   database: process.env.POSTGRES_DATA_BASE,
-  // synchronize: process.env.ENV === 'development',
-  // logging: false,
+  synchronize: process.env.ENV === 'development',
+  logging: false,
   entities: [`${__dirname}/**/entity/*.ts`],
   migrations: [`${__dirname}/**/**/migrations/*.ts`],
 });
