@@ -5,14 +5,24 @@ export class BookController {
   constructor(private bookService: BookService) {}
 
   async getAll(req: Request, res: Response) {
-    const listBooks = await this.bookService.getAll();
-
+    try {
+      const listBooks = await this.bookService.list();
+      res.status(200).send(listBooks);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
+    
     return res.status(200).send(listBooks);
   }
 
   async getId(req: Request, res: Response) {
     const id = req.params.id;
-    const book = await this.bookService.getOne(id);
+    try {
+      const book = await this.bookService.show(id);
+      res.status(200).send(book);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(book);
   }

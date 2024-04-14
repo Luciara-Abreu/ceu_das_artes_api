@@ -7,7 +7,7 @@ import { NotFoundError, ConflictError } from '../helpers/api.error';
 export class UserService {
   private repository = AppDataSource.getRepository(User);
 
-  async getAll() {
+  async list() {
     const list = await this.repository.find();
     if (list.length === 0 || !list.length) {
       throw new NotFoundError('A lista está vazia 👻');
@@ -16,7 +16,7 @@ export class UserService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idUser = await this.repository.findOneBy({ id });
     if (!idUser) {
       throw new NotFoundError('Usuário não encontrado 👻');

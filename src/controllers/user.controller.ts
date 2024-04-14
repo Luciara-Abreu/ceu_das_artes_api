@@ -5,14 +5,24 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   async getAll(req: Request, res: Response) {
-    const list = await this.userService.getAll();
+    try {
+      const list = await this.userService.list();
+      res.status(200).send(list);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(list);
   }
 
   async getId(req: Request, res: Response) {
     const id = req.params.id;
-    const user = await this.userService.getOne(id);
+    try {
+      const user = await this.userService.show(id);
+      res.status(200).send(user);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(user);
   }

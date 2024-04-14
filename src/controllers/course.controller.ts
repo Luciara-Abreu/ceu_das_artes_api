@@ -5,14 +5,24 @@ export class CourseController {
   constructor(private courseService: CourseService) {}
 
   async getAll(req: Request, res: Response) {
-    const listCourses = await this.courseService.getAll();
+    try {
+      const listCourses = await this.courseService.list();
+      res.status(200).send(listCourses);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(listCourses);
   }
 
   async getId(req: Request, res: Response) {
     const id = req.params.id;
-    const course = await this.courseService.getOne(id);
+    try {
+      const course = await this.courseService.show(id);
+      res.status(200).send(course);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(course);
   }

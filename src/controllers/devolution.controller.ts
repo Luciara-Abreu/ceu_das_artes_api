@@ -5,7 +5,12 @@ export class DevolutionController {
   constructor(private devolutionService: DevolutionService) {}
 
   async getAll(req: Request, res: Response) {
-    const devolutions = await this.devolutionService.getAll();
+    try {
+      const devolutions = await this.devolutionService.list();
+      res.status(200).send(devolutions);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(devolutions);
   }
@@ -13,7 +18,12 @@ export class DevolutionController {
   //listar um
   async getId(req: Request, res: Response) {
     const id = req.params.id;
-    const devolution = await this.devolutionService.getOne(id);
+    try {
+      const devolution = await this.devolutionService.show(id);
+      res.status(200).send(devolution);
+    } catch (error: any) {
+      res.status(400).send({ message: error.message });
+    }
 
     return res.status(200).send(devolution);
   }
