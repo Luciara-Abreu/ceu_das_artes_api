@@ -6,7 +6,7 @@ export class UserController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const list = await this.userService.getAll();
+      const list = await this.userService.list();
       res.status(200).send(list);
     } catch (error: any) {
       res.status(400).send({ message: error.message });
@@ -16,7 +16,7 @@ export class UserController {
   async getId(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const user = await this.userService.getOne(id);
+      const user = await this.userService.show(id);
       res.status(200).send(user);
     } catch (error: any) {
       res.status(400).send({ message: error.message });

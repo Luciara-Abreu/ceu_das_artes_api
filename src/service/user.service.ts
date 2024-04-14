@@ -6,7 +6,7 @@ import { User } from '../entity/user.entity';
 export class UserService {
   private repository = AppDataSource.getRepository(User);
 
-  async getAll() {
+  async list() {
     const list = await this.repository.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
@@ -15,7 +15,7 @@ export class UserService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idUser = await this.repository.findOneBy({ id });
     if (!idUser) {
       throw new Error('Usuário não encontrado 👻');

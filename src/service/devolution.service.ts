@@ -10,7 +10,7 @@ export class DevolutionService {
   private locationRepopsitory = AppDataSource.getRepository(Location);
   private devolutionRepository = AppDataSource.getRepository(Devolution);
 
-  async getAll() {
+  async list() {
     const list = await this.devolutionRepository.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A  lista de devolução está vazia 👻');
@@ -19,7 +19,7 @@ export class DevolutionService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idBook = await this.devolutionRepository.findOneBy({ id });
     if (!idBook) {
       throw new Error('Devolução não encontrada 👻');

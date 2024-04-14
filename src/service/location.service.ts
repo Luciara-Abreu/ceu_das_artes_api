@@ -7,7 +7,7 @@ export class LocationService {
   private locationRepopsitory = AppDataSource.getRepository(Location);
   private bookRepository = AppDataSource.getRepository(Book);
 
-  async getAll() {
+  async list() {
     const list = await this.locationRepopsitory.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
@@ -16,7 +16,7 @@ export class LocationService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idBook = await this.locationRepopsitory.findOneBy({ id });
     if (!idBook) {
       throw new Error('Locação não encontrada 👻');

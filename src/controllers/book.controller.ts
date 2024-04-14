@@ -6,7 +6,7 @@ export class BookController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const listBooks = await this.bookService.getAll();
+      const listBooks = await this.bookService.list();
       res.status(200).send(listBooks);
     } catch (error: any) {
       res.status(400).send({ message: error.message });
@@ -16,7 +16,7 @@ export class BookController {
   async getId(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const book = await this.bookService.getOne(id);
+      const book = await this.bookService.show(id);
       res.status(200).send(book);
     } catch (error: any) {
       res.status(400).send({ message: error.message });

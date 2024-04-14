@@ -5,7 +5,7 @@ import { Course } from '../entity/course.entity';
 export class CourseService {
   private courseRepository = AppDataSource.getRepository(Course);
 
-  async getAll() {
+  async list() {
     const list = await this.courseRepository.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
@@ -13,7 +13,7 @@ export class CourseService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idCurso = await this.courseRepository.findOneBy({ id });
     if (!idCurso) {
       throw new Error('Curso não encontrado 👻');

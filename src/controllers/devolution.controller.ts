@@ -6,7 +6,7 @@ export class DevolutionController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const devolutions = await this.devolutionService.getAll();
+      const devolutions = await this.devolutionService.list();
       res.status(200).send(devolutions);
     } catch (error: any) {
       res.status(400).send({ message: error.message });
@@ -17,7 +17,7 @@ export class DevolutionController {
   async getId(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const devolution = await this.devolutionService.getOne(id);
+      const devolution = await this.devolutionService.show(id);
       res.status(200).send(devolution);
     } catch (error: any) {
       res.status(400).send({ message: error.message });

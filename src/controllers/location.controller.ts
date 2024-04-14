@@ -6,7 +6,7 @@ export class LocationController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const listLocations = await this.locationService.getAll();
+      const listLocations = await this.locationService.list();
       res.status(200).send(listLocations);
     } catch (error: any) {
       res.status(400).send({ message: error.message });
@@ -16,7 +16,7 @@ export class LocationController {
   async getId(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const location = await this.locationService.getOne(id);
+      const location = await this.locationService.show(id);
       res.status(200).send(location);
     } catch (error: any) {
       res.status(400).send({ message: error.message });

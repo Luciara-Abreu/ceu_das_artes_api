@@ -6,7 +6,7 @@ export class CourseController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const listCourses = await this.courseService.getAll();
+      const listCourses = await this.courseService.list();
       res.status(200).send(listCourses);
     } catch (error: any) {
       res.status(400).send({ message: error.message });
@@ -16,7 +16,7 @@ export class CourseController {
   async getId(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const course = await this.courseService.getOne(id);
+      const course = await this.courseService.show(id);
       res.status(200).send(course);
     } catch (error: any) {
       res.status(400).send({ message: error.message });

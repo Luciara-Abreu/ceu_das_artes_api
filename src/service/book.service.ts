@@ -5,7 +5,7 @@ import { Book } from '../entity/book.entity';
 export class BookService {
   private bookRepopsitory = AppDataSource.getRepository(Book);
 
-  async getAll() {
+  async list() {
     const list = await this.bookRepopsitory.find();
     if (list.length === 0 || !list.length) {
       throw new Error('A lista está vazia 👻');
@@ -14,7 +14,7 @@ export class BookService {
     return list;
   }
 
-  async getOne(id: string) {
+  async show(id: string) {
     const idBook = await this.bookRepopsitory.findOneBy({ id });
     if (!idBook) {
       throw new Error('Livro não encontrado 👻');
