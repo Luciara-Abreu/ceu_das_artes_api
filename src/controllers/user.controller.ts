@@ -11,6 +11,8 @@ export class UserController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(list);
   }
 
   async getId(req: Request, res: Response) {
@@ -21,6 +23,8 @@ export class UserController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(user);
   }
 
   async create(req: Request, res: Response) {

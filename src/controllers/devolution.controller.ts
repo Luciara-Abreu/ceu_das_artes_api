@@ -11,6 +11,8 @@ export class DevolutionController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(devolutions);
   }
 
   //listar um
@@ -22,6 +24,8 @@ export class DevolutionController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(devolution);
   }
 
   //add devolution

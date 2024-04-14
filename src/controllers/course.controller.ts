@@ -11,6 +11,8 @@ export class CourseController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(listCourses);
   }
 
   async getId(req: Request, res: Response) {
@@ -21,6 +23,8 @@ export class CourseController {
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }
+
+    return res.status(200).send(course);
   }
 
   async create(req: Request, res: Response) {
