@@ -1,29 +1,32 @@
 import { Request, Response, Router } from 'express';
 import { UserController } from '../controllers/user.controller';
 import { UserService } from '../service/user.service';
+import { validateMiddleware } from '../middlewares/validate.middleware';
+import { createUserSchema, deleteUserSchema, showUserSchema, updateUserSchema } from '../helpers/schemas/validate.user.schema';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const route = Router();
 
 const userService = new UserService();
 const userController = new UserController(userService);
 
-route.get('/', async (req: Request, res: Response) => {
+route.get('/', authMiddleware, async (req: Request, res: Response) => {
   return userController.getAll(req, res);
 });
 
-route.get('/:id', async (req: Request, res: Response) => {
+route.get('/:id', authMiddleware, showUserSchema, validateMiddleware, async (req: Request, res: Response) => {
   return userController.getId(req, res);
 });
 
-route.post('/', async (req: Request, res: Response) => {
+route.post('/', authMiddleware, createUserSchema, validateMiddleware, async (req: Request, res: Response) => {
   return userController.create(req, res);
 });
 
-route.patch('/:id', async (req: Request, res: Response) => {
+route.patch('/:id', authMiddleware, updateUserSchema, validateMiddleware, async (req: Request, res: Response) => {
   return userController.update(req, res);
 });
 
-route.delete('/:id', async (req: Request, res: Response) => {
+route.delete('/:id', authMiddleware, deleteUserSchema, validateMiddleware, async (req: Request, res: Response) => {
   return userController.delete(req, res);
 });
 
