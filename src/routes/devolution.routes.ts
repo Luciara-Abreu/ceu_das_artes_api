@@ -8,11 +8,11 @@ const devolutionService = new DevolutionService();
 const devolutionController = new DevolutionController(devolutionService);
 
 route.get('/', async (req: Request, res: Response) => {
-  return devolutionController.getAll(req, res);
+  return devolutionController.list(req, res);
 });
 
 route.get('/:id', async (req: Request, res: Response) => {
-  return devolutionController.getId(req, res);
+  return devolutionController.show(req, res);
 });
 
 route.post('/', async (req: Request, res: Response) => {

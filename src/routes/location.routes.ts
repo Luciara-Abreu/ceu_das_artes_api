@@ -8,11 +8,11 @@ const locationService = new LocationService();
 const locationController = new LocationController(locationService);
 
 route.get('/', async (req: Request, res: Response) => {
-  return locationController.getAll(req, res);
+  return locationController.list(req, res);
 });
 
 route.get('/:id', async (req: Request, res: Response) => {
-  return locationController.getId(req, res);
+  return locationController.show(req, res);
 });
 
 route.post('/', async (req: Request, res: Response) => {
