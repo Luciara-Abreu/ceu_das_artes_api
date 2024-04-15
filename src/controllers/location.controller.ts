@@ -4,25 +4,15 @@ import { LocationService } from '../service/location.service';
 export class LocationController {
   constructor(private locationService: LocationService) {}
 
-  async getAll(req: Request, res: Response) {
-    try {
-      const listLocations = await this.locationService.list();
-      res.status(200).send(listLocations);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+  async list(req: Request, res: Response) {
+    const listLocations = await this.locationService.list();
 
     return res.status(200).send(listLocations);
   }
 
-  async getId(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      const location = await this.locationService.show(id);
-      res.status(200).send(location);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const location = await this.locationService.show(id);
 
     return res.status(200).send(location);
   }

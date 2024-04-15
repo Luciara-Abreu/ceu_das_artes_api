@@ -4,25 +4,15 @@ import { UserService } from '../service/user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  async getAll(req: Request, res: Response) {
-    try {
-      const list = await this.userService.list();
-      res.status(200).send(list);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+  async list(req: Request, res: Response) {
+    const list = await this.userService.list();
 
     return res.status(200).send(list);
   }
 
-  async getId(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      const user = await this.userService.show(id);
-      res.status(200).send(user);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const user = await this.userService.show(id);
 
     return res.status(200).send(user);
   }
