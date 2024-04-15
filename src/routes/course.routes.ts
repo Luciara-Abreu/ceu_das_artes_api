@@ -8,11 +8,11 @@ const courseService = new CourseService();
 const courseController = new CourseController(courseService);
 
 route.get('/', async (req: Request, res: Response) => {
-  return courseController.getAll(req, res);
+  return courseController.list(req, res);
 });
 
 route.get('/:id', async (req: Request, res: Response) => {
-  return courseController.getId(req, res);
+  return courseController.show(req, res);
 });
 
 route.post('/', async (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import { IUserDTO } from '../dto/user.dto';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { resolve } from 'path';
 import { EtherealMailProvider } from '../providers/ethereal-mail.provider';
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   async reset(password: string, token: string) {
-    const data: any = jwt.verify(token, process.env.JWT_SECRET);
+    const data = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
 
     if (!validateUUID(data.id)) throw new BadRequestError('Token não é valido');
 
@@ -56,7 +56,6 @@ export class AuthService {
     this.repository.update(data.id, { password });
 
     const id = data.id;
-
     const user = await this.repository.findOneBy({ id });
 
     return this.createToken(user);

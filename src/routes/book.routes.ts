@@ -8,11 +8,11 @@ const bookService = new BookService();
 const bookController = new BookController(bookService);
 
 route.get('/', async (req: Request, res: Response) => {
-  return bookController.getAll(req, res);
+  return bookController.list(req, res);
 });
 
 route.get('/:id', async (req: Request, res: Response) => {
-  return bookController.getId(req, res);
+  return bookController.show(req, res);
 });
 
 route.post('/', async (req: Request, res: Response) => {
