@@ -4,25 +4,15 @@ import { BookService } from '../service/book.service';
 export class BookController {
   constructor(private bookService: BookService) {}
 
-  async getAll(req: Request, res: Response) {
-    try {
-      const listBooks = await this.bookService.list();
-      res.status(200).send(listBooks);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
-    
+  async list(req: Request, res: Response) {
+    const listBooks = await this.bookService.list();
+
     return res.status(200).send(listBooks);
   }
 
-  async getId(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      const book = await this.bookService.show(id);
-      res.status(200).send(book);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const book = await this.bookService.show(id);
 
     return res.status(200).send(book);
   }

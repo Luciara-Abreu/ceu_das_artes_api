@@ -11,11 +11,11 @@ const userService = new UserService();
 const userController = new UserController(userService);
 
 route.get('/', authMiddleware, async (req: Request, res: Response) => {
-  return userController.getAll(req, res);
+  return userController.list(req, res);
 });
 
 route.get('/:id', authMiddleware, showUserSchema, validateMiddleware, async (req: Request, res: Response) => {
-  return userController.getId(req, res);
+  return userController.show(req, res);
 });
 
 route.post('/', authMiddleware, createUserSchema, validateMiddleware, async (req: Request, res: Response) => {

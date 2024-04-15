@@ -4,25 +4,15 @@ import { CourseService } from '../service/course.service';
 export class CourseController {
   constructor(private courseService: CourseService) {}
 
-  async getAll(req: Request, res: Response) {
-    try {
-      const listCourses = await this.courseService.list();
-      res.status(200).send(listCourses);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+  async list(req: Request, res: Response) {
+    const listCourses = await this.courseService.list();
 
     return res.status(200).send(listCourses);
   }
 
-  async getId(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
     const id = req.params.id;
-    try {
-      const course = await this.courseService.show(id);
-      res.status(200).send(course);
-    } catch (error: any) {
-      res.status(400).send({ message: error.message });
-    }
+    const course = await this.courseService.show(id);
 
     return res.status(200).send(course);
   }
