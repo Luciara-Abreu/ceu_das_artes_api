@@ -2,10 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/user.entity';
-
-type JwtPayload = {
-  id: string;
-};
+import { decodedToken } from '../helpers/decoded.token';
 
 const repository = AppDataSource.getRepository(User);
 
@@ -15,11 +12,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   try {
     if (!authorization) return res.status(401).json({ error: 'Não autorizado. Token ausente.' });
 
-    const token = authorization.split(' ')[1];
-
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-
-    const id = decodedToken.id;
+    const id = decodedToken(authorization).id;
     const user = await repository.findOneBy({ id });
 
     if (!user) return res.status(401).json({ error: 'Não autorizado. Usuário não encontrado.' });
@@ -30,10 +23,8 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
     next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      return res.status(401).json({ error: 'Não autorizado. Token inválido.' });
-    } else {
-      return res.status(500).json({ error: 'Erro interno do servidor.' });
-    }
+    error instanceof jwt.JsonWebTokenError
+      ? res.status(401).json({ error: 'Não autorizado. Token inválido.' })
+      : res.status(500).json({ error: 'Erro interno do servidor.' });
   }
 };
