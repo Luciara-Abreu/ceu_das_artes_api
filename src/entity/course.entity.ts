@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 
-@Entity('course')
+@Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -33,7 +33,7 @@ export class Course {
   @UpdateDateColumn()
   updatedAt?: Date;
 
-  @ManyToOne(() => User, (user) => user.courses)
-  @JoinColumn({ name: 'instructorId' })
-  user: User;
+  // @ManyToOne(() => User, (user) => user.courses)
+  // @JoinColumn({ name: 'instructorId' })
+  // user: User;
 }

@@ -2,7 +2,7 @@ export interface IUserDTO {
   id: string;
   name: string;
   email: string;
-  fone: string;
+  phone: string;
   role?: number;
   password?: string;
 }

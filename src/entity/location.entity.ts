@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { Book } from './book.entity';
 import { User } from './user.entity';
 
-@Entity('Location')
+@Entity('locations')
 export class Location {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -28,11 +28,11 @@ export class Location {
   @UpdateDateColumn()
   updatedAt?: Date;
 
-  @ManyToOne(() => Book, (book) => book.locations) // Muitas devoluções podem ter um único livro
-  @JoinColumn({ name: 'bookId' }) // Nome da coluna na tabela de Locação que armazena a chave estrangeira
+  @ManyToOne(() => Book, (book) => book.locations)
+  @JoinColumn({ name: 'bookId' })
   book: Book;
 
-  @ManyToOne(() => User, (user) => user.locations) // Muitas devoluções podem ter um único usuário
-  @JoinColumn({ name: 'userId' }) // Nome da coluna na tabela de Locação que armazena a chave estrangeira
+  @ManyToOne(() => User, (user) => user.locations)
+  @JoinColumn({ name: 'userId' })
   user: User;
 }
