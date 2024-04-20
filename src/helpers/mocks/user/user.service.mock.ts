@@ -6,4 +6,4 @@ export const UserServiceMock = {
   show: jest.fn().mockResolvedValue(userListMock[0]),
   update: jest.fn().mockResolvedValue(userListMock[0]),
   delete: jest.fn().mockResolvedValue(true),
-}
+};
