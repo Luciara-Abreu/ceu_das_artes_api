@@ -18,7 +18,7 @@ export class UserController {
   }
 
   async create(req: Request, res: Response) {
-    await this.userService.create(req.body.email, req.body);
+    await this.userService.create(req.body);
 
     return res.status(200).send({ message: 'Usuário adicionado com sucesso!' });
   }
@@ -27,13 +27,13 @@ export class UserController {
     const id = req.params.id;
     await this.userService.update(id, req.body);
 
-    return res.status(200).send({ message: 'Usuário atualizado' });
+    return res.status(200).send({ message: 'Usuário atualizado com sucesso!' });
   }
 
   async delete(req: Request, res: Response) {
     const id = req.params.id;
-    await this.userService.remove(id);
+    await this.userService.delete(id);
 
-    return res.status(200).send({ message: 'Usuário deletado com sucesso!' });
+    return res.status(200).send({ message: 'Usuário excluído com sucesso!' });
   }
 }
