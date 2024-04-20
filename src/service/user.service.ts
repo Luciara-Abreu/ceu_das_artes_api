@@ -25,12 +25,12 @@ export class UserService {
     return idUser;
   }
 
-  async create(email: string, newUSer: IUserDTO) {
-    const user = await this.repository.findOneBy({ email });
-    if (user) throw new ConflictError('Usuário já cadastrado');
-    newUSer.password = await bcrypt.hash(newUSer.password, await bcrypt.genSalt());
+  async create(data: IUserDTO) {
+    if (await this.repository.exists({ where: { email: data.email } })) throw new ConflictError('Usuário já cadastrado');
 
-    return await this.repository.save(newUSer);
+    data.password = await bcrypt.hash(data.password, await bcrypt.genSalt());
+
+    return await this.repository.save(data);
   }
 
   async update(id: string, user: Partial<IUserDTO>) {
@@ -43,7 +43,7 @@ export class UserService {
     return userUpdate;
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     const idUser = await this.repository.findOneBy({ id });
     if (!idUser) {
       throw new NotFoundError('Usuário não encontrado 👻');
