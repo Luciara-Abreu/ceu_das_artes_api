@@ -1,16 +1,18 @@
-import { userListMock } from '../helpers/mocks/user/user.list.mock';
-import { UserServiceMock } from '../helpers/mocks/user/user.service.mock';
+import { userListMock } from '../helpers/mocks/user.list.mock';
+import { UserServiceMock } from '../helpers/mocks/user.service.mock';
 import { UserController } from './user.controller';
-import { listUsersResReqMock } from '../helpers/mocks/user/list.users.res.req.mock';
-import { createUserResReqMock } from '../helpers/mocks/user/create.user.res.req.mock';
-import { updateUserResReqMock } from '../helpers/mocks/user/update.user.res.req.mock';
-import { deleteUserResReqMock } from '../helpers/mocks/user/delete.user.res.req.mock';
+import { reqMock } from '../helpers/mocks/req.mock';
+import { resMock } from '../helpers/mocks/res.mock';
 
 describe('UserController', () => {
   let userController: UserController;
   let userServiceMock: any;
+  let req: any;
+  let res: any;
 
   beforeEach(() => {
+    req = reqMock;
+    res = resMock;
     userServiceMock = UserServiceMock;
     userController = new UserController(userServiceMock);
   });
@@ -20,48 +22,56 @@ describe('UserController', () => {
     expect(userController).toBeDefined();
   });
 
-  it('must be able to return a list of users', async () => {
-    const { req, res } = listUsersResReqMock();
+  describe('method list', () => {
+    it('must be able to return a list of users', async () => {
+      req.body = userListMock;
 
-    await userServiceMock.list();
-    await userController.list(req, res);
+      await userServiceMock.list();
+      await userController.list(req, res);
 
-    expect(userServiceMock.list).toHaveBeenCalledWith();
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.send).toHaveBeenLastCalledWith(userListMock);
+      expect(userServiceMock.list).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenLastCalledWith(userListMock);
+    });
   });
 
-  it('must be able to create a user', async () => {
-    const { req, res } = createUserResReqMock();
+  describe('method create', () => {
+    it('must be able to create a user', async () => {
+      req.body = userListMock[0];
 
-    await userServiceMock.create();
-    await userController.create(req, res);
+      await userServiceMock.create();
+      await userController.create(req, res);
 
-    expect(userServiceMock.create).toHaveBeenCalledWith();
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(req.body).toEqual(userListMock[0]);
-    expect(res.send).toHaveBeenCalledWith({ message: 'Usuário adicionado com sucesso!' });
+      expect(userServiceMock.create).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(req.body).toEqual(userListMock[0]);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Usuário adicionado com sucesso!' });
+    });
   });
 
-  it('must be able to update a user', async () => {
-    const { req, res } = updateUserResReqMock();
+  describe('method update', () => {
+    it('must be able to update a user', async () => {
+      req.param = userListMock[0].id;
 
-    await userServiceMock.update();
-    await userController.update(req, res);
+      await userServiceMock.update();
+      await userController.update(req, res);
 
-    expect(userServiceMock.update).toHaveBeenCalledWith();
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.send).toHaveBeenCalledWith({ message: 'Usuário atualizado com sucesso!' });
+      expect(userServiceMock.update).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Usuário atualizado com sucesso!' });
+    });
   });
 
-  it('must be able to delete a user', async () => {
-    const { req, res } = deleteUserResReqMock();
+  describe('method delete', () => {
+    it('must be able to delete a user', async () => {
+      req.param = userListMock[0].id;
 
-    await userServiceMock.delete();
-    await userController.delete(req, res);
+      await userServiceMock.delete();
+      await userController.delete(req, res);
 
-    expect(userServiceMock.delete).toHaveBeenCalledWith();
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.send).toHaveBeenCalledWith({ message: 'Usuário excluído com sucesso!' });
+      expect(userServiceMock.delete).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Usuário excluído com sucesso!' });
+    });
   });
 });
