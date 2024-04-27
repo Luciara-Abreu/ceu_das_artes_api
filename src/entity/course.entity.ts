@@ -6,31 +6,31 @@ export class Course {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   description: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   periodMorning: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   periodMAfternoon: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   durationClassroom: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   dayOfTheWeek: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   instructorId: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt?: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt?: Date;
 
   // @ManyToOne(() => User, (user) => user.courses)

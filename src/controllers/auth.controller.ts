@@ -10,17 +10,17 @@ export class AuthController {
     return res.status(200).json(user);
   }
 
-  async profile(req: Request, res: Response) {
+  async profile(req: Request, res: Response): Promise<Response> {
     return res.status(200).json(req.user);
   }
 
-  async forget(req: Request, res: Response) {
+  async forget(req: Request, res: Response): Promise<Response> {
     await this.authService.forget(req.body.email);
 
     return res.status(200).send({ message: 'E-mail enviado com sucesso!' });
   }
 
-  async reset(req: Request, res: Response) {
+  async reset(req: Request, res: Response): Promise<Response> {
     const user = await this.authService.reset(req.body.password, req.body.token);
 
     return res.status(200).json(user);

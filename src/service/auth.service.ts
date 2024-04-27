@@ -8,6 +8,10 @@ import { User } from '../entity/user.entity';
 import { validate as validateUUID } from 'uuid';
 import { BadRequestError } from '../helpers/api.error';
 
+interface IResponse {
+  accessToken: string;
+}
+
 export class AuthService {
   private repository = AppDataSource.getRepository(User);
 
@@ -16,10 +20,10 @@ export class AuthService {
   createToken(user: IUserDTO) {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    return { acessToken: token };
+    return { accessToken: token };
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<IResponse> {
     const user = await this.repository.findOneBy({ email });
 
     if (!user) throw new BadRequestError('Senha ou e-mail inválido.');
@@ -46,7 +50,7 @@ export class AuthService {
     await this.etherealMailProvider.sendMail(email, 'Recuperação de senha', variables, templatePath);
   }
 
-  async reset(password: string, token: string) {
+  async reset(password: string, token: string): Promise<IResponse> {
     const data = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
 
     if (!validateUUID(data.id)) throw new BadRequestError('Token não é valido');

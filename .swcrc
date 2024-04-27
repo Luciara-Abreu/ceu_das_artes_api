@@ -4,15 +4,17 @@
     "parser": {
       "syntax": "typescript",
       "tsx": false,
-      "dynamicImport": false,
-      "decorators": false
+      "dynamicImport": true,
+      "decorators": true
     },
     "transform": {},
-    "target": "es2020",
-    "loose": false,
+    "target": "es2021",
+    "loose": true,
     "externalHelpers": false,
     "keepClassNames": false
   },
-  "minify": false
+  "minify": false,
+  "module": {
+    "type": "commonjs"
+  }
 }
- 

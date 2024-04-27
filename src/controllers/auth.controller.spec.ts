@@ -3,6 +3,7 @@ import { userListMock } from '../helpers/mocks/user.list.mock';
 import { AuthServiceMock } from '../helpers/mocks/auth.service.mock';
 import { reqMock } from '../helpers/mocks/req.mock';
 import { resMock } from '../helpers/mocks/res.mock';
+import { tokenMock } from '../helpers/mocks/token.mock';
 
 describe('AuthController', () => {
   let authController: AuthController;
@@ -27,11 +28,11 @@ describe('AuthController', () => {
       const userData = userListMock[0];
       authServiceMock.login.mockResolvedValue(userData);
       req.body.email = 'john.doe@example.com.br';
-      req.body.password = '$2b$10$2pbaCVzDPD4oB9cIZQTJcOyY5/p23czVnMkSckViVJfxi6n8UPyu2';
+      req.body.password = '123@456';
 
       await authController.login(req, res);
 
-      expect(authServiceMock.login).toHaveBeenCalledWith('john.doe@example.com.br', '$2b$10$2pbaCVzDPD4oB9cIZQTJcOyY5/p23czVnMkSckViVJfxi6n8UPyu2');
+      expect(authServiceMock.login).toHaveBeenCalledWith('john.doe@example.com.br', '123@456');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(userData);
     });
@@ -66,15 +67,11 @@ describe('AuthController', () => {
       const userData = userListMock[0];
       authServiceMock.reset.mockResolvedValue(userData);
       req.body.password = '123@456';
-      req.body.token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxODI4MDcwLTgxZDAtNDg0ZS04MjY1LWY3OTQ4ZmFhNmM1YiIsImlhdCI6MTcxMzQ4MDk5MiwiZXhwIjoxNzEzNDg0NTkyfQ.ekJZoiTv246AHb3kWxHw4rxGMFj7ir5N6aSd3gWMsxk';
+      req.body.token = tokenMock;
 
       await authController.reset(req, res);
 
-      expect(authServiceMock.reset).toHaveBeenCalledWith(
-        '123@456',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxODI4MDcwLTgxZDAtNDg0ZS04MjY1LWY3OTQ4ZmFhNmM1YiIsImlhdCI6MTcxMzQ4MDk5MiwiZXhwIjoxNzEzNDg0NTkyfQ.ekJZoiTv246AHb3kWxHw4rxGMFj7ir5N6aSd3gWMsxk',
-      );
+      expect(authServiceMock.reset).toHaveBeenCalledWith('123@456', tokenMock);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(userData);
     });

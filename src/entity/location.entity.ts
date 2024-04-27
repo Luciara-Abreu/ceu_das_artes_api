@@ -7,25 +7,25 @@ export class Location {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'string' })
   bookId: string;
 
-  @Column()
+  @Column({ type: 'string' })
   userId: string;
 
-  @Column()
+  @Column({ type: 'date' })
   takeOnDate: Date;
 
-  @Column()
+  @Column({ type: 'date' })
   devolutionDate: Date;
 
-  @Column()
+  @Column({ type: 'varchar' })
   status: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt?: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt?: Date;
 
   @ManyToOne(() => Book, (book) => book.locations)
