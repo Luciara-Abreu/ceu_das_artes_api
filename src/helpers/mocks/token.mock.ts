@@ -1,0 +1,4 @@
+export const tokenMock = {
+  accessToken:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxODI4MDcwLTgxZDAtNDg0ZS04MjY1LWY3OTQ4ZmFhNmM1YiIsImlhdCI6MTcxMzQ4MDk5MiwiZXhwIjoxNzEzNDg0NTkyfQ.ekJZoiTv246AHb3kWxHw4rxGMFj7ir5N6aSd3gWMsxk',
+};
