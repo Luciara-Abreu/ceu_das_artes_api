@@ -8,25 +8,25 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'varchar' })
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   phone: string;
 
-  @Column({ default: Role.User })
+  @Column({ default: Role.User, type: 'int' })
   role: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   password: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt?: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt?: Date;
 
   @OneToMany(() => Location, (location) => location.user)

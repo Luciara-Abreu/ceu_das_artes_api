@@ -7,16 +7,16 @@ export class Devolution {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'string' })
   bookId: string;
 
-  @Column()
+  @Column({ type: 'string' })
   userId: string;
 
-  @Column()
+  @Column({ type: 'timestamp' })
   effectiveDevolution: Date;
 
-  @Column()
+  @Column({ type: 'varchar' })
   conditionDelivery: string;
 
   @CreateDateColumn()

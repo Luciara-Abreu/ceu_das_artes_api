@@ -7,34 +7,34 @@ export class Book {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   title: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   author: string;
 
-  @Column()
+  @Column({ type: 'date' })
   yearPublication?: Date;
 
-  @Column()
+  @Column({ type: 'varchar' })
   genre: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   cover: string;
 
-  @Column()
+  @Column({ type: 'int' })
   quantityPages: number;
 
-  @Column()
+  @Column({ type: 'int' })
   quantityBook: number;
 
-  @Column()
+  @Column({ type: 'int' })
   booksInStock: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt?: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt?: Date;
 
   @OneToMany(() => Location, (location) => location.book)
