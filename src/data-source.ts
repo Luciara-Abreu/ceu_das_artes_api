@@ -2,7 +2,8 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 
-dotenv.config();
+dotenv.config({ path: process.env.ENV === 'test' ? '.env.test' : '.env' });
+
 const port = process.env.DB_POSTGRES_PORT as unknown as number | undefined;
 
 export const AppDataSource = new DataSource({

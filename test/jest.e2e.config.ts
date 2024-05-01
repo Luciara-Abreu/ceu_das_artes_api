@@ -1,7 +1,6 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  rootDir: 'src',
   clearMocks: true,
   coverageProvider: 'v8',
   transform: {
@@ -15,6 +14,7 @@ const config: Config = {
     ],
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  testMatch: ['<rootDir>/**/*-e2e.spec.ts'],
 };
 
 export default config;

@@ -1,9 +1,6 @@
 import fs from 'fs';
 import handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 interface IMailProvider {
   sendMail(to: string, subject: string, variables: any, path: string): Promise<void>;

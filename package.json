@@ -20,6 +20,7 @@
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "supertest": "^6.3.4",
     "ts-node": "10.9.1",
@@ -52,10 +53,16 @@
     "format": "eslint src/**/*.ts --fix",
     "build": "tsc",
     "start": "node dist/index.js",
+    "test": "jest",
+    "pretest:e2e": "cross-env ENV=test npm run clear:db:test && cross-env ENV=test npm run migrate:up",
+    "test:e2e": "cross-env ENV=test jest --config ./test/jest.e2e.config.ts",
+    "posttest:e2e": "cross-env ENV=test npm run clear:db:test",
     "typeorm:ts": "typeorm-ts-node-commonjs",
+    "clear:db:test": "npm run typeorm:ts schema:drop -- -d ./src/data-source.ts",
     "migrate:create": "npm run typeorm:ts migration:create -- ./src/typeorm/migrations/Migrate",
     "migrate:up": "npm run typeorm:ts migration:run -- -d ./src/data-source.ts",
-    "migrate:down": "npm run typeorm:ts migration:revert -- -d ./typeorm/data-source.ts",
-    "test": "jest --detectOpenHandles"
+    "migrate:down": "npm run typeorm:ts migration:revert -- -d ./src/data-source.ts",
+    "seed:admin": "ts-node-dev src/typeorm/seed/admin.ts",
+    "create:db:test": "ts-node-dev src/typeorm/db/create-db-test.ts"
   }
 }
