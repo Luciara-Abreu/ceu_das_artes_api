@@ -57,7 +57,7 @@ export class AuthService {
 
     password = await bcrypt.hash(password, await bcrypt.genSalt());
 
-    this.repository.update(data.id, { password });
+    await this.repository.update(data.id, { password });
 
     const id = data.id;
     const user = await this.repository.findOneBy({ id });

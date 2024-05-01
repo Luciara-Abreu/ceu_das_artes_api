@@ -1,22 +1,12 @@
-import 'express-async-errors';
-import 'reflect-metadata';
-import dotenv from 'dotenv';
-import express from 'express';
+import { app } from './app';
 import { AppDataSource } from './data-source';
-import routes from './routes';
-import { errorMiddleware } from './middlewares/error.middleware';
+import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: process.env.ENV === 'test' ? '.env.test' : '.env' });
 
 const port = Number(process.env.PORT);
-const app = express();
-
-app.use(express.json());
-app.use(routes);
-
 AppDataSource.initialize()
   .then(async () => {
-    app.use(errorMiddleware);
     app.listen(port, () => {
       console.log('');
       // eslint-disable-next-line prettier/prettier
